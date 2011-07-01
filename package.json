@@ -17,7 +17,8 @@
     "jsdom":         "= 0.2.0",
     "optimist":      "= 0.2.0",
     "node-xmpp":     "= 0.2.9",
-    "async":         "= 0.1.9"
+    "async":         "= 0.1.9",
+    "request":       "= 1.9.8"
   },
   "devDependencies": {}
 }
