@@ -1,0 +1,23 @@
+{
+  "author": "Justin Mazzi",
+  "name": "red",
+  "description": "Red is a jabber bot who knows how to get things",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jmazzi/red",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jmazzi/red.git"
+  },
+  "engines": {
+    "node": ">=0.4.8"
+  },
+  "dependencies": {
+    "coffee-script": ">= 1.1.0",
+    "xml2js":        "= 0.1.6",
+    "jsdom":         "= 0.2.0",
+    "optimist":      "= 0.2.0",
+    "node-xmpp":     "= 0.2.9",
+    "async":         "= 0.1.9"
+  },
+  "devDependencies": {}
+}
