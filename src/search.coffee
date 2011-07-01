@@ -4,12 +4,15 @@ jsdom          = require 'jsdom'
 jq             = __dirname +  '/../lib/jquery-1.5.min.js'
 
 
-class Search extends EventEmitter
+class exports.Search extends EventEmitter
   constructor: ->
     @linkPrefix   = ''
     @requiresHttp = false
     @uri          = ''
     @pattern      = ''
+    @trigger      = null
+    @klasses      = {}
+
   perform: (text) ->
     query = encodeURIComponent text
     results = ''
@@ -31,20 +34,8 @@ class Search extends EventEmitter
               results = results + link + "\n"
           @emit 'end', results
 
-class exports.Google extends Search
-  constructor: ->
-    @uri          = 'http://www.google.com/search?q='
-    @pattern      = '#ires ol li .r a'
-    @requiresHttp = true
-
-class exports.GoogleImage extends Search
-  constructor: ->
-    @uri          = 'http://images.google.com/search?tbm=isch&biw=1140&bih=983&q='
-    @pattern      = '#ires ol li .rg .rg_ctlv'
-    @requiresHttp = true
-
-class exports.Youtube extends Search
-  constructor: ->
-    @uri          = 'http://www.youtube.com/results?search_query='
-    @pattern      = '#search-results h3 a'
-    @linkPrefix   = 'http://www.youtube.com'
+  addProvider: (klass) ->
+    unless @klasses[klass]?
+      name = klass.charAt(0).toUpperCase() + klass.slice(1)
+      k = new require("#{__dirname}/search/#{klass}")[name]
+      @klasses[klass] = k
