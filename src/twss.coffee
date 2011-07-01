@@ -1,11 +1,6 @@
 
 module.exports.TWSS = class TWSS
 
-  # @subjects = "\\bs?he|it\\b"
-  # @adjectives = "\\bbig|huge\\b"
-
-  @regex = /\bs?he|it\b.*\bbig|huge\b/
-
   @match: (text) ->
     if text
       twss = new @(text)
@@ -17,4 +12,4 @@ module.exports.TWSS = class TWSS
     @text = text
 
   check: ->
-    !! @text.match /\b(he|it|that)\b.*\b(big|huge)\b/ if @text?
+    !! @text.match /\b(he|it|that)\b.*\b(big(ger)?|huger?)\b/ if @text?

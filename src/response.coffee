@@ -1,6 +1,7 @@
 xml2js  = require 'xml2js'
 search  = require './search'
 sys     = require 'sys'
+{TWSS}  = require './twss'
 
 google        = new search.Google()
 googleImage   = new search.GoogleImage()
@@ -42,10 +43,16 @@ Response.prototype.parse = (stanza, group = false) ->
           when 'yahoo'
             response = 'hhahahahahahah, wtf is a yahooo!?'
           else
-            response = help
+            if TWSS.match body
+              response = "That's, what she said ... that's, what she said."
+            else if !group
+              response = help
       else
-        if !group
+        if TWSS.match body
+          response = "That's, what she said ... that's, what she said."
+        else if !group
           response = help
+
       @emit 'end', {response: response, stanza: stanza}
   parser.parseString stanza.toString()
 
