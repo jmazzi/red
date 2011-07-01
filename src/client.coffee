@@ -5,11 +5,11 @@ response = new res
 
 exports.Client = class Client
   constructor: (username, password, nickname) ->
-    @username = username
-    @password = password
-    @nickname = nickname
+    @username   = username
+    @password   = password
+    @nickname   = nickname
     @conference = "conference.#{username.split('@')[1]}"
-    @rooms    = []
+    @rooms      = []
 
   connect: ->
     cl = new xmpp.Client jid: @username, password: @password
@@ -20,7 +20,7 @@ exports.Client = class Client
         group  = reply.stanza.attrs.type is 'groupchat'
         if group is true
           room = stanza.attrs.from.split('/')[0]
-          msg = new xmpp.Element('message', {to: room, type: 'groupchat'}).c('body').t(res)
+          msg  = new xmpp.Element('message', {to: room, type: 'groupchat'}).c('body').t(res)
         else
           msg = new xmpp.Element('message', {to: stanza.attrs.from, type: 'chat'}).c('body').t(res)
         cl.send msg
