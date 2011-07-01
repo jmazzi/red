@@ -3,7 +3,7 @@ xmpp     = require 'node-xmpp'
 res      = require('./response').Response
 response = new res
 
-class Client
+exports.Client = class Client
   constructor: (username, password) ->
     @username = username
     @password = password
