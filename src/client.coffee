@@ -5,11 +5,11 @@ response = new res
 
 exports.Client = class Client
   constructor: (username, password, nickname) ->
-    @username = username
-    @password = password
-    @nickname = nickname
+    @username   = username
+    @password   = password
+    @nickname   = nickname
     @conference = "conference.#{username.split('@')[1]}"
-    @rooms    = []
+    @rooms      = []
 
   connect: ->
     cl = new xmpp.Client jid: @username, password: @password
@@ -17,10 +17,10 @@ exports.Client = class Client
       stanza = reply.stanza
       res    = reply.response
       if stanza? and res?
-        group  = reply.stanza.attrs.type == 'groupchat'
-        if group == true
+        group  = reply.stanza.attrs.type is 'groupchat'
+        if group is true
           room = stanza.attrs.from.split('/')[0]
-          msg = new xmpp.Element('message', {to: room, type: 'groupchat'}).c('body').t(res)
+          msg  = new xmpp.Element('message', {to: room, type: 'groupchat'}).c('body').t(res)
         else
           msg = new xmpp.Element('message', {to: stanza.attrs.from, type: 'chat'}).c('body').t(res)
         cl.send msg
@@ -45,10 +45,12 @@ exports.Client = class Client
       sys.puts e
 
   addRoom: (room) ->
-    @rooms.push room
+    room = room.toLowerCase()
+    if not (room in @rooms)
+      @rooms.push room
 
   fromMe: (stanza) ->
     for room in @rooms
-      if stanza.attrs.from == "#{room}@#{@conference}/#{@nickname}"
+      if stanza.attrs.from is "#{room}@#{@conference}/#{@nickname}"
         return true
     false
