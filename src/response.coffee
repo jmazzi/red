@@ -3,14 +3,14 @@ search  = require './search'
 sys     = require 'sys'
 
 google        = new search.Google()
-googleImage  = new search.GoogleImage()
+googleImage   = new search.GoogleImage()
 youtube       = new search.Youtube()
 parser        = new xml2js.Parser()
 
 
 Response = ->
 Response.prototype = new process.EventEmitter
-Response.prototype.parse = (stanza) ->
+Response.prototype.parse = (stanza, group = false) ->
   response = ''
   help     = "google <query>\n" +
              "youtube <query>\n" +
@@ -18,9 +18,15 @@ Response.prototype.parse = (stanza) ->
   parser.once 'end', (result) =>
     body = result['body']
     if body?
-      regex = /^(.*?) (.*)/
+      if group == true
+        sys.puts 'group'
+        sys.puts body
+        regex = /^red, (.*?) (.*)/
+      else
+        sys.puts 'chat'
+        regex = /^(.*?) (.*)/
       match = regex.exec body
-      if match? 
+      if match?
         result = match[1]
         query = match[2]
         switch result
@@ -41,7 +47,8 @@ Response.prototype.parse = (stanza) ->
           else
             response = help
       else
-        response = help
+        if !group
+          response = help
       @emit 'end', {response: response, stanza: stanza}
   parser.parseString stanza.toString()
 
