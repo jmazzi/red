@@ -7,7 +7,6 @@ exports.Client = class Client
   constructor: (username, password) ->
     @username = username
     @password = password
-    @connect()
 
   connect: ->
     cl = new xmpp.Client jid: @username, password: @password
