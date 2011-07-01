@@ -1,9 +1,13 @@
 
 module.exports.TWSS = class TWSS
 
-  @subjects = /\bs?he|it\b/
+  @subjects = ///\b
+    s?he|it
+  \b///
 
-  @adjectives = /\bbig|huge\b/
+  @adjectives = ///\b
+    big|huge
+  \b///
 
   @match: (text) ->
     twss = new @(text)
@@ -13,4 +17,4 @@ module.exports.TWSS = class TWSS
     @text = text
 
   check: ->
-    false
+    @text.match(@subjects) && @text.match(@adjectives)
