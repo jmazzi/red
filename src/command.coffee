@@ -1,7 +1,7 @@
 opt      = require 'optimist'
 {Client} = require './client'
 
-usage  = 'Usage: red --username [username] --password [password] [--host [host]]'
+usage  = 'Usage: red --username <user@jabber.org> --password <secret>'
 demand = ['username', 'password']
 argv   = opt.usage(usage).demand(demand).argv
 
