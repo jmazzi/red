@@ -5,6 +5,7 @@ sys     = require 'sys'
 google        = new search.Google()
 googleImage  = new search.GoogleImage()
 youtube       = new search.Youtube()
+twitter       = new search.Twitter()
 parser        = new xml2js.Parser()
 
 
@@ -14,7 +15,8 @@ Response.prototype.parse = (stanza) ->
   response = ''
   help     = "google <query>\n" +
              "youtube <query>\n" +
-             "yahoo <query>"
+             "yahoo <query>\n" +
+             "twitter <query>\n"
   parser.once 'end', (result) =>
     body = result['body']
     if body?
@@ -38,6 +40,10 @@ Response.prototype.parse = (stanza) ->
             youtube.perform query
           when 'yahoo'
             response = 'hhahahahahahah, wtf is a yahooo!?'
+          when 'twitter'
+            twitter.once 'end', (res) =>
+              @emit 'end', {response: res, stanza: stanza}
+            twitter.perform query
           else
             response = help
       else
