@@ -4,7 +4,7 @@ require 'sinon-nodeunit'
 
 module.exports = testCase
   setUp: (proceed) ->
-    @client = new Client 'lolz@lolz.org', 'password'
+    @client = new Client 'lolz@lolz.org', 'password', 'lolz'
     proceed()
 
   "sets @username": (test) ->
@@ -31,4 +31,61 @@ module.exports = testCase
     @client.addRoom "room"
     @client.addRoom "rOom"
     test.equal 1, @client.rooms.length
+    test.done()
+
+
+  "fromMe() returns true when from self": (test)->
+    stanza = JSON.parse '
+      {
+          "name": "message",
+          "parent": null,
+          "attrs": {
+              "to": "lolz@lolz.org7ec5456",
+              "type": "groupchat",
+              "from": "room@conference.lolz.org/lolz",
+              "xmlns:stream": "http://etherx.jabber.org/streams",
+              "xmlns": "jabber:client"
+          },
+          "children": [
+              {
+                  "name": "body",
+                  "parent": [
+                      "Circular"
+                  ],
+                  "attrs": {},
+                  "children": []
+              }
+          ]
+      }
+    '
+    @client.addRoom 'room'
+    test.ok @client.fromMe(stanza)
+    test.done()
+
+  "fromMe() returns false when not from self": (test)->
+    stanza = JSON.parse '
+      {
+          "name": "message",
+          "parent": null,
+          "attrs": {
+              "to": "lolz@lolz.org7ec5456",
+              "type": "groupchat",
+              "from": "room@conference.lolz.org/bob",
+              "xmlns:stream": "http://etherx.jabber.org/streams",
+              "xmlns": "jabber:client"
+          },
+          "children": [
+              {
+                  "name": "body",
+                  "parent": [
+                      "Circular"
+                  ],
+                  "attrs": {},
+                  "children": []
+              }
+          ]
+      }
+    '
+    @client.addRoom 'room'
+    test.ok !@client.fromMe(stanza)
     test.done()
