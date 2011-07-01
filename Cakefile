@@ -30,3 +30,10 @@ task 'run', 'Run the bot', ->
 task 'build_and_run', ->
   build()
   run()
+
+task 'test', "Run the tests", ->
+  build ->
+    require.paths.unshift __dirname + "/lib"
+    {reporters} = require 'nodeunit'
+    process.chdir __dirname
+    reporters.default.run ['test']
