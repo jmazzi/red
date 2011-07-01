@@ -29,5 +29,6 @@ module.exports = testCase
   "addRoom() does not appent duplicates": (test) ->
     @client.addRoom "room"
     @client.addRoom "room"
+    @client.addRoom "rOom"
     test.equal 1, @client.rooms.length
     test.done()

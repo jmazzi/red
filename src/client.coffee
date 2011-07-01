@@ -45,6 +45,7 @@ exports.Client = class Client
       sys.puts e
 
   addRoom: (room) ->
+    room = room.toLowerCase()
     if not (room in @rooms)
       @rooms.push room
 
