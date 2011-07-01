@@ -20,7 +20,6 @@ exports.Client = class Client
         group  = reply.stanza.attrs.type == 'groupchat'
         if group == true
           room = stanza.attrs.from.split('/')[0]
-          sys.puts room
           msg = new xmpp.Element('message', {to: room, type: 'groupchat'}).c('body').t(res)
         else
           msg = new xmpp.Element('message', {to: stanza.attrs.from, type: 'chat'}).c('body').t(res)
@@ -41,8 +40,6 @@ exports.Client = class Client
             response.parse stanza
           when 'groupchat'
             response.parse stanza, true
-          else
-            sys.puts stanza.attrs.type
 
     cl.on 'error', (e) =>
       sys.puts e

@@ -19,11 +19,8 @@ Response.prototype.parse = (stanza, group = false) ->
     body = result['body']
     if body?
       if group == true
-        sys.puts 'group'
-        sys.puts body
         regex = /^red, (.*?) (.*)/
       else
-        sys.puts 'chat'
         regex = /^(.*?) (.*)/
       match = regex.exec body
       if match?
