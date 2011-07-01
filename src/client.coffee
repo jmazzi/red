@@ -17,8 +17,8 @@ exports.Client = class Client
       stanza = reply.stanza
       res    = reply.response
       if stanza? and res?
-        group  = reply.stanza.attrs.type == 'groupchat'
-        if group == true
+        group  = reply.stanza.attrs.type is 'groupchat'
+        if group is true
           room = stanza.attrs.from.split('/')[0]
           msg = new xmpp.Element('message', {to: room, type: 'groupchat'}).c('body').t(res)
         else
@@ -45,10 +45,11 @@ exports.Client = class Client
       sys.puts e
 
   addRoom: (room) ->
-    @rooms.push room
+    if not (room in @rooms)
+      @rooms.push room
 
   fromMe: (stanza) ->
     for room in @rooms
-      if stanza.attrs.from == "#{room}@#{@conference}/#{@nickname}"
+      if stanza.attrs.from is "#{room}@#{@conference}/#{@nickname}"
         return true
     false
