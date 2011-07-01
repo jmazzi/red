@@ -22,5 +22,5 @@ cl.on 'stanza', (stanza) ->
   if stanza.is('message') && stanza.attrs.type != 'error'
     response.parse stanza
 
-cl.on 'error', ->
+cl.on 'error', (e) ->
   sys.puts e
