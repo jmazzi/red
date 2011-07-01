@@ -15,11 +15,11 @@ class Search extends EventEmitter
     results = ''
     request {uri: @uri + query }, (error, response, body) =>
       if !error? && response.statusCode == 200
-        window = jsdom.jsdom(body).createWindow()
-        jsdom.jQueryify window, jq, (window, jquery) =>
+        jQueryURI = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js'
+        jsdom.env body, [jQueryURI], (errors, window) =>
           $ = window.$
-          jquery(@pattern).each (i, lmn) =>
-            href  = $(lmn).attr('href') 
+          $(@pattern).each (i, lmn) =>
+            href  = $(lmn).attr('href')
             title = $(lmn).text()
             if @linkPrefix?
               href = @linkPrefix + href
