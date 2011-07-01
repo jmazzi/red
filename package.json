@@ -20,7 +20,10 @@
     "async":         "= 0.1.9",
     "request":       "= 1.9.8",
     "underscore":    "= 1.1.6",
-    "ent":           ">= 0.0.4"
+    "ent":           ">= 0.0.4",
+    "sinon-nodeunit": "= 0.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodeunit": "= 0.5.1"
+  }
 }
