@@ -3,12 +3,9 @@ RED
 Red is a jabber bot written in node.js with coffee-script. He knows how to
 get things from time to time.
 
-WHAT IS IS?
-----------
-
-This is an experiment; Nothing more. Right now all it can do is youtube and
+Red is an experiment; Nothing more. Right now all he can do is youtube and
 google searches. He may also shout "Thats what she said" from time to time.
-So what?
+So what? You either get busy laughing, or you get busy dieing.
 
 USAGE
 -----
