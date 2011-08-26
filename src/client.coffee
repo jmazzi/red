@@ -10,6 +10,7 @@ exports.Client = class Client
     @nickname   = nickname
     @conference = "conference.#{username.split('@')[1]}"
     @rooms      = []
+    @exit_strs  = ["authentication failure"]
 
   connect: ->
     cl = new xmpp.Client jid: @username, password: @password
@@ -43,8 +44,8 @@ exports.Client = class Client
 
     cl.on 'error', (e) =>
       sys.puts e
-      if /authentication failure/i.exec e
-        process.exit -1
+      for msg in @exit_strs
+        process.exit -1 if e.match msg
 
   addRoom: (room) ->
     room = room.toLowerCase()
