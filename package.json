@@ -21,7 +21,9 @@
     "request":       "= 1.9.8",
     "underscore":    "= 1.1.6",
     "ent":           ">= 0.0.4",
-    "sinon-nodeunit": "= 0.1.2"
+    "sinon-nodeunit": "= 0.1.2",
+    "gzip":          "= v0.1.0",
+    "b64":           "= v1.0.0"
   },
   "devDependencies": {
     "nodeunit": "= 0.5.1"
