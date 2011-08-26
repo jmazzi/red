@@ -43,6 +43,8 @@ exports.Client = class Client
 
     cl.on 'error', (e) =>
       sys.puts e
+      if /authentication failure/i.exec e
+        process.exit -1
 
   addRoom: (room) ->
     room = room.toLowerCase()
